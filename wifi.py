@@ -2,7 +2,7 @@
 
 import time
 
-from util import cmd, smart_bool
+from util import cmd, smart_bool, toHex
 
 class RasberryWifi(object):
     
@@ -24,7 +24,7 @@ class RasberryWifi(object):
             self._cmd_select_network(network_id)
             self._cmd_save_config()
             self._cmd_reconfigure_network()
-            time.sleep(10)
+            time.sleep(12)
         else:
             return False
 
@@ -53,7 +53,7 @@ class RasberryWifi(object):
         networks = self.network_list()
         for network in networks:
             if network['active']:
-                return network['name']
+                return network['name'].decode("string-escape")
         return ""
 
     def _add_network(self):
@@ -119,7 +119,7 @@ class RasberryWifi(object):
         return cmd("sudo wpa_cli reconfigure")
 
     def _cmd_add_ssid(self, network_id, ssid):
-        return cmd("sudo wpa_cli set_network {} ssid '\"{}\"' ".format(network_id, ssid))
+        return cmd("sudo wpa_cli set_network {} ssid {}' ".format(network_id, toHex(ssid)))
 
     def _cmd_add_psk(self, network_id, psk=None):
         if psk is None or len(psk) == 0:

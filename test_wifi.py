@@ -134,5 +134,8 @@ class WifiTestCase(unittest.TestCase):
         actual = self.rasberryWifi.connect_wifi("AutonomousTech", "autonomous123")
         self.assertTrue(actual)
 
+        actual = self.rasberryWifi.connect_wifi("'pikachu'", wpa='')
+        self.assertTrue(actual)
+
 if __name__ == '__main__':
     unittest.main()
