@@ -119,7 +119,7 @@ class RasberryWifi(object):
         return cmd("sudo wpa_cli reconfigure")
 
     def _cmd_add_ssid(self, network_id, ssid):
-        return cmd("sudo wpa_cli set_network {} ssid {}' ".format(network_id, toHex(ssid)))
+        return cmd("sudo wpa_cli set_network {} ssid {}".format(network_id, toHex(ssid)))
 
     def _cmd_add_psk(self, network_id, psk=None):
         if psk is None or len(psk) == 0:
